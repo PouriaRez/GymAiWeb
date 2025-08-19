@@ -7,4 +7,96 @@ info:
 servers:
   - url: http://localhost:3010/api/v0
 
-paths: {}
+paths:
+  /login:
+    post:
+      description: Login
+      requestBody:
+        description: Login Body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRegisterCreds'
+      responses:
+        200:
+          description: Login Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        404:
+          description: User not found
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /register:
+    post:
+      description: Register
+      requestBody:
+        description: Registration body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRegisterCreds'
+      responses:
+        201:
+          description: Created User
+        400:
+          description: Unexpected property
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+
+    LoginRegisterCreds:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      required:
+        - username
+        - password
+
+    User:
+      type: object
+      properties:
+        username:
+          type: string
+        id:
+          type: string
+          format: uuid
+        accessToken:
+          type: string
+      required:
+        - username
+        - id
+        - accessToken
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

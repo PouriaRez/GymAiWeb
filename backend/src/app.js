@@ -6,6 +6,7 @@ import fs from 'fs';
 import path from 'node:path';
 import OpenApiValidator from 'express-openapi-validator';
 import { fileURLToPath } from 'node:url';
+import * as auth from './auth/auth.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -30,6 +31,8 @@ app.use(
 );
 
 // Routes
+app.post('/api/v0/register', auth.Register);
+// app.post('/api/v0/login', auth.Login);
 
 app.use((err, req, res, next) => {
   res.status(err.status).json({
