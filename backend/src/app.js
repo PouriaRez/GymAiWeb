@@ -32,7 +32,7 @@ app.use(
 
 // Routes
 app.post('/api/v0/register', auth.Register);
-// app.post('/api/v0/login', auth.Login);
+app.post('/api/v0/login', auth.Login);
 
 app.use((err, req, res, next) => {
   res.status(err.status).json({

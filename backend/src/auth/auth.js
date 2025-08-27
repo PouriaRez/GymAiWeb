@@ -13,4 +13,23 @@ export const Register = async (req, res) => {
   res.status(201).send();
 };
 
-export const Login = async (req, res) => {};
+export const Login = async (req, res) => {
+  const { username, password } = req.body;
+
+  const result = await db.loginAccount(username, password);
+
+  if (!result) {
+    return res.status(404).send();
+  }
+  const token = jwt.sign(
+    {
+      id: result[0],
+      username: result[1],
+    },
+    process.env.SECRET
+  );
+
+  res
+    .status(200)
+    .json({ id: result[0], username: result[1], accessToken: token });
+};
