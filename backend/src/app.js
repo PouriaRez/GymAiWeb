@@ -20,7 +20,7 @@ const apiSpec = path.join(__dirname, '../api/openapi.yaml');
 const apidoc = yaml.load(fs.readFileSync(apiSpec, 'utf8'));
 app.use('/api/v0/docs', swaggerUi.serve, swaggerUi.setup(apidoc));
 
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ origin: 'http://localhost:5173' }));
 
 app.use(
   OpenApiValidator.middleware({

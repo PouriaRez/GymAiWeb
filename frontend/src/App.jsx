@@ -1,7 +1,51 @@
-import './App.css';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import ContextProvider from './context/contextProvider';
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import { useState, useEffect } from 'react';
+import { Box, CssBaseline } from '@mui/material';
 
 function App() {
-  return <>Welcome lol</>;
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      setLoggedIn(false);
+      return;
+    }
+    setLoggedIn(true);
+  }, []);
+
+  return (
+    <>
+      <BrowserRouter>
+        <CssBaseline />
+        <ContextProvider.Provider
+          value={{
+            // loggedIn,
+            setLoggedIn,
+          }}
+        >
+          <Box
+            sx={{
+              flex: 1,
+              height: '100vh',
+              padding: '5px',
+            }}
+          >
+            <Routes>
+              <Route
+                path="/login"
+                element={!loggedIn ? <Login /> : <Navigate to="/" />}
+              />
+              <Route path="/" element={loggedIn ? <Dashboard /> : <Login />} />
+            </Routes>
+          </Box>
+        </ContextProvider.Provider>
+      </BrowserRouter>
+    </>
+  );
 }
 
 export default App;
