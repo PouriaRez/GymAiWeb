@@ -8,10 +8,10 @@ const Login = () => {
   const { setLoggedIn } = useContext(ContextProvider);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [err, setErr] = useState('');
   const nav = useNavigate();
-  console.log(username);
-  console.log(password);
+
   const handleLogin = (username, password) => {
     if (!username || !password) {
       setErr({ message: 'Please enter a username and password.' });
@@ -50,6 +50,11 @@ const Login = () => {
         }
       );
   };
+
+  const handleRegisterRedirect = () => {
+    nav('/register');
+  };
+
   return (
     <Box
       sx={{
@@ -75,7 +80,7 @@ const Login = () => {
         <TextField
           required
           aria-label="password"
-          type="password"
+          type={showPassword ? 'text' : 'password'}
           label="Password"
           onChange={(e) => {
             setPassword(e.target.value);
@@ -90,6 +95,7 @@ const Login = () => {
       >
         Login
       </Button>
+      <Button onClick={handleRegisterRedirect}>Create an account</Button>
     </Box>
   );
 };
