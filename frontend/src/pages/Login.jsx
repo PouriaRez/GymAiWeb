@@ -1,14 +1,13 @@
 import { useState, useContext } from 'react';
-import ContextProvider from '../context/contextProvider';
 import { Box, Button, FormControl, TextField } from '@mui/material';
-import LoginIcon from '@mui/icons-material/Login';
 import { useNavigate } from 'react-router-dom';
+import ContextProvider from '../context/contextProvider';
+import LoginIcon from '@mui/icons-material/Login';
 
 const Login = () => {
   const { setLoggedIn } = useContext(ContextProvider);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
   const [err, setErr] = useState('');
   const nav = useNavigate();
 
@@ -63,6 +62,7 @@ const Login = () => {
         justifyContent: 'center',
         alignItems: 'center',
         gap: 2,
+        height: '50vh',
       }}
     >
       <FormControl>
@@ -80,7 +80,7 @@ const Login = () => {
         <TextField
           required
           aria-label="password"
-          type={showPassword ? 'text' : 'password'}
+          type="password"
           label="Password"
           onChange={(e) => {
             setPassword(e.target.value);

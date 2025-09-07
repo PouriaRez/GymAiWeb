@@ -47,7 +47,7 @@ paths:
       responses:
         201:
           description: Created User
-        400:
+        409:
           description: Unexpected property
         default:
           description: Unexpected error.

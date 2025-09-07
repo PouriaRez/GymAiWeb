@@ -7,7 +7,7 @@ export const Register = async (req, res) => {
   const hashedPass = await bcrypt.hash(password, 10);
   const result = await db.createAccount(username, hashedPass);
   if (!result) {
-    return res.status(400).send();
+    return res.status(409).send();
   }
 
   res.status(201).send();

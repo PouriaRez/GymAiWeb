@@ -28,22 +28,14 @@ function App() {
             setLoggedIn,
           }}
         >
-          <Box
-            sx={{
-              flex: 1,
-              height: '100vh',
-              padding: '5px',
-            }}
-          >
-            <Routes>
-              <Route
-                path="/login"
-                element={!loggedIn ? <Login /> : <Navigate to="/" />}
-              />
-              <Route path="/register" element={<Register />} />
-              <Route path="/" element={loggedIn ? <Dashboard /> : <Login />} />
-            </Routes>
-          </Box>
+          <Routes>
+            <Route
+              path="/login"
+              element={!loggedIn ? <Login /> : <Navigate to="/" />}
+            />
+            <Route path="/register" element={<Register />} />
+            <Route path="/" element={loggedIn ? <Dashboard /> : <Login />} />
+          </Routes>
         </ContextProvider.Provider>
       </BrowserRouter>
     </>
